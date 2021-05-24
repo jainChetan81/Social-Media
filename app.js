@@ -1,8 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const expressValidator = require("express-validator");
 require("./models/post");
 require("./models/user");
