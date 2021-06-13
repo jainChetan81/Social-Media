@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid");
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -20,7 +22,32 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now(),
 	},
-    updated:Date
+	updated: Date,
 });
 
+userSchema
+	.virtual("password")
+	.set(function (password) {
+		this._password = password; //temporary variable
+		//generate a timestamp
+		this.salt = uuidv4();
+		//encrypt password
+		this.hashed_password = this.encryptPassword(password);
+	})
+	.get(function () {
+		return this._password;
+	});
+
+//methods
+userSchema.methods = {
+	encryptPassword: function (password) {
+		if (!password) return "";
+		try {
+			return crypto.createHmac("sha1", this.salt).update(password).digest("hex");
+		} catch (err) {
+			console.error("error in encryption :", err);
+			return "";
+		}
+	},
+};
 mongoose.model("User", userSchema);

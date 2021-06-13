@@ -11,11 +11,7 @@ dotenv.config();
 
 //database
 mongoose
-	.connect(
-		process.env.MONGO_URI,
-		{useNewUrlParser: true},
-		{useUnifiedTopology: true}
-	)
+	.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => {
 		console.log(`MongoDB Connected!`);
 	});
@@ -37,6 +33,7 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 
 app.use("/", require("./routes/post"));
+app.use("/", require("./routes/auth"));
 
 app.listen(PORT, () => {
 	console.log("Server is listening at port :", PORT);
