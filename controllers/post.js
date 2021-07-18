@@ -3,8 +3,8 @@ const Post = mongoose.model("Post");
 
 exports.getPosts = (req, res) => {
 	const posts = Post.find()
-		.select("_id title")
-		.then((result) => res.status(200).json({posts: result}))
+		.select("_id title body")
+		.then((result) => res.status(200).json({ posts: result }))
 		.catch((err) => console.error(`error : ${err}`));
 };
 exports.createPost = (req, res) => {

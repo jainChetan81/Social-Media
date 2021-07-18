@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const expressValidator = require("express-validator");
@@ -31,9 +32,14 @@ app.use(bodyParser.json());
 // app.use(express.json({limit: "50mb"}));
 // app.use(express.urlencoded());
 app.use(expressValidator());
+app.use(cookieParser());
 
 app.use("/", require("./routes/post"));
 app.use("/", require("./routes/auth"));
+app.use("/", require("./routes/user"));
+app.use(function (err, req, res, next) {
+	if (err.name === "UnauthorizedError") res.status(401).json({ error: "Unauthorized`" });
+});
 
 app.listen(PORT, () => {
 	console.log("Server is listening at port :", PORT);
