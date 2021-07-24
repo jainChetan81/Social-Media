@@ -5,7 +5,8 @@ const fs = require("fs");
 
 exports.getPosts = (req, res) => {
 	const posts = Post.find()
-		.select("_id title body postedBy")
+		.populate("postedBy", "_id name")
+		.select("_id title body")
 		.then((result) => res.status(200).json({ posts: result }))
 		.catch((err) => console.error(`error : ${err}`));
 };
@@ -38,4 +39,14 @@ exports.createPost = (req, res) => {
 			post: result,
 		});
 	});
+};
+
+exports.postByUser = (req, res) => {
+	Post.find({ postedBy: req.profile._id })
+		.populate("postedBy", "_id name")
+		.sort("_created")
+		.exec((err, post) => {
+			if (err) return res.status(400).json({ error: err });
+			res.json(post);
+		});
 };
