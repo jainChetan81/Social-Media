@@ -1,8 +1,12 @@
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import MainRouter from "./MainRouter";
+
 function App() {
 	return (
-		<div className="App">
-			<header className="container">Container</header>
-		</div>
+		<Router>
+			<MainRouter />
+		</Router>
 	);
 }
 
