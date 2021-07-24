@@ -1,9 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const fs = require("fs");
 const expressValidator = require("express-validator");
 require("./models/postModel");
 require("./models/userModel");
@@ -24,8 +26,19 @@ mongoose.connection.on("error", (err) => {
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+//read on uget request of "/"
+app.get("/", (req, res) => {
+	fs.readFile("docs/apiDocs.json", (err, data) => {
+		if (err) return res.status(400).json({ error: err });
+		const docs = JSON.parse(data);
+		res.json(docs);
+	});
+});
+
 //middleware
 app.use(morgan("dev"));
+
+app.use(cors());
 //to log everything on console
 app.use(bodyParser.json());
 //because express on itself doesn't pass the request body
