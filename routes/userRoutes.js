@@ -1,6 +1,12 @@
 const express = require("express");
-const { requireSignin } = require("../controllers/auth");
-const { userById, allUsers, getUser, updateUser, deleteUser } = require("../controllers/user");
+const { requireSignin } = require("../controllers/authController");
+const {
+	userById,
+	allUsers,
+	getUser,
+	updateUser,
+	deleteUser,
+} = require("../controllers/userController");
 const router = express.Router();
 router.get("/users", allUsers);
 router.get("/user/:userId", requireSignin, getUser);

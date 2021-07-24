@@ -13,7 +13,19 @@ const postSchema = new mongoose.Schema({
 		minlength: 4,
 		maxlength: 1000,
 	},
+	photo: {
+		type: Buffer,
+		contentType: String,
+	},
+	postedBy: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: "PostedBy is required",
+	},
+	created: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
-// module.exports = mongoose.model("Post", postSchema);
 mongoose.model("Post", postSchema);

@@ -5,8 +5,8 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const expressValidator = require("express-validator");
-require("./models/post");
-require("./models/user");
+require("./models/postModel");
+require("./models/userModel");
 
 dotenv.config();
 
@@ -34,9 +34,9 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(cookieParser());
 
-app.use("/", require("./routes/post"));
-app.use("/", require("./routes/auth"));
-app.use("/", require("./routes/user"));
+app.use("/", require("./routes/postRoutes"));
+app.use("/", require("./routes/authRoutes"));
+app.use("/", require("./routes/userRoutes"));
 app.use(function (err, req, res, next) {
 	if (err.name === "UnauthorizedError") res.status(401).json({ error: "Unauthorized`" });
 });
