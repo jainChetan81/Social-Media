@@ -5,7 +5,6 @@ require("dotenv").config();
 const User = mongoose.model("User");
 
 exports.signUp = async (req, res) => {
-	console.log(`req.body`, req.body);
 	const userExists = await User.findOne({ email: req.body.email });
 	if (userExists) return res.status(403).json({ error: "Email is taken!" });
 	const user = await new User(req.body);
@@ -37,5 +36,6 @@ exports.signOut = async (req, res) => {
 
 exports.requireSignin = expressJwt({
 	secret: process.env.JWT_SECRET,
+	userProperty: "auth",
 	algorithms: ["sha1", "RS256", "HS256"],
 });

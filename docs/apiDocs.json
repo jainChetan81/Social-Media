@@ -1,0 +1,297 @@
+{
+	"client": "Thunder Client",
+	"collectionName": "Mern Social Media",
+	"dateExported": "2021-07-24T14:57:53.423Z",
+	"version": "1.1",
+	"folders": [
+		{
+			"containerId": "",
+			"sortNum": 10000,
+			"name": "user",
+			"_id": "4886a327-d01c-48e0-9cb0-b7cb7fe70649",
+			"created": "2021-07-18T17:22:46.211Z"
+		},
+		{
+			"containerId": "",
+			"sortNum": 20000,
+			"name": "auth",
+			"_id": "4733be66-c85c-4d60-aaa2-59eda5b9603b",
+			"created": "2021-07-18T17:22:52.219Z"
+		},
+		{
+			"containerId": "",
+			"sortNum": 30000,
+			"name": "posts",
+			"_id": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"created": "2021-07-18T17:22:58.849Z"
+		}
+	],
+	"requests": [
+		{
+			"containerId": "4733be66-c85c-4d60-aaa2-59eda5b9603b",
+			"sortNum": 10000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" }
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "signup",
+			"url": "http://localhost:8080/signup",
+			"method": "POST",
+			"modified": "2021-07-18T17:22:53.775Z",
+			"created": "2021-06-13T11:31:26.409Z",
+			"_id": "3ae46f96-4ec9-42f9-b688-71fdb4f5fc46",
+			"params": [],
+			"body": {
+				"type": "json",
+				"raw": "{\n    \"name\":\"jain\",\n    \"email\":\"a@a.c\",\n    \"password\":\"cheta1\"\n}",
+				"form": []
+			},
+			"tests": []
+		},
+		{
+			"containerId": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"sortNum": 10000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZjIwZTQ2MjhlNTMyZDBiOGQ5Y2YiLCJpYXQiOjE2MjcxMjU0MjR9.txEe833kQbe3fIyQgD-nW4of6_ZNSV_KuMuUtqxaPA0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "create posts",
+			"url": "http://localhost:8080/post/new/60c5f20e4628e532d0b8d9cf",
+			"method": "POST",
+			"modified": "2021-07-24T14:13:14.477Z",
+			"created": "2021-06-13T11:52:16.919Z",
+			"_id": "ad5ab23a-51e1-40fe-a38d-c5a5e7ce3b14",
+			"params": [],
+			"body": {
+				"type": "formencoded",
+				"raw": "",
+				"form": [
+					{ "name": "title", "value": "Title FOrmData" },
+					{ "name": "body", "value": "Bidy FOrmData" }
+				]
+			},
+			"tests": []
+		},
+		{
+			"containerId": "4733be66-c85c-4d60-aaa2-59eda5b9603b",
+			"sortNum": 20000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZmQ4NTAzYjlkODA4NzBmOGUwYzUiLCJpYXQiOjE2MjYwNTg3MDF9.v5G9KfxqLghuvr6lzv9wudySOfXM6YZcKwqXL5TzhZc"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "signin",
+			"url": "http://localhost:8080/signin",
+			"method": "POST",
+			"modified": "2021-07-24T13:37:40.886Z",
+			"created": "2021-07-11T11:48:01.847Z",
+			"_id": "91bf281f-1b1e-44b8-b2d2-1024f29b20c6",
+			"params": [],
+			"body": {
+				"type": "json",
+				"raw": "{\n    \"email\":\"a@a.com\",\n    \"password\":\"chetan\"\n}",
+				"form": []
+			},
+			"tests": []
+		},
+		{
+			"containerId": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"sortNum": 20000,
+			"headers": [
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "Content-Type", "value": "application/json" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZmQ4NTAzYjlkODA4NzBmOGUwYzUiLCJpYXQiOjE2MjYwNTkxOTZ9.HRvEsa-XoIs-idnUJJlgqdM7vvCWF7PXqcdnSPRR9Dc",
+					"isDisabled": true
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "get posts",
+			"url": "http://localhost:8080/",
+			"method": "GET",
+			"modified": "2021-07-24T14:49:38.226Z",
+			"created": "2021-06-13T11:51:45.535Z",
+			"_id": "9479c992-e635-47c2-af44-0394fa077aa8",
+			"params": [],
+			"body": { "type": "json", "raw": "{\n    \n}", "form": [] },
+			"tests": []
+		},
+		{
+			"containerId": "4886a327-d01c-48e0-9cb0-b7cb7fe70649",
+			"sortNum": 20000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" }
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "get all users",
+			"url": "http://localhost:8080/users",
+			"method": "GET",
+			"modified": "2021-07-18T18:29:36.019Z",
+			"created": "2021-07-18T10:41:56.737Z",
+			"_id": "f8a8a2ac-0174-491d-8381-6aab5d648a21",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "4886a327-d01c-48e0-9cb0-b7cb7fe70649",
+			"sortNum": 30000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZmQ4NTAzYjlkODA4NzBmOGUwYzUiLCJpYXQiOjE2MjY2MTMzMTd9.vJPf8T8iyzKpaviwejxoFUYnejbViiZm39nYk7pP1y0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "get single user by id",
+			"url": "http://localhost:8080/user/60c5fd8503b9d80870f8e0c5",
+			"method": "GET",
+			"modified": "2021-07-18T17:30:53.212Z",
+			"created": "2021-07-18T12:54:18.114Z",
+			"_id": "c78d80c0-dc4a-4230-90ec-346986254dfe",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "4733be66-c85c-4d60-aaa2-59eda5b9603b",
+			"sortNum": 30000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" }
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "signout",
+			"url": "http://localhost:8080/signout",
+			"method": "GET",
+			"modified": "2021-07-18T18:29:27.324Z",
+			"created": "2021-07-11T11:55:15.117Z",
+			"_id": "d8b4c834-2770-4095-9d06-ba6f0cb09b8b",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "4886a327-d01c-48e0-9cb0-b7cb7fe70649",
+			"sortNum": 40000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZmQ4NTAzYjlkODA4NzBmOGUwYzUiLCJpYXQiOjE2MjY2MTMzMTd9.vJPf8T8iyzKpaviwejxoFUYnejbViiZm39nYk7pP1y0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "update user",
+			"url": "http://localhost:8080/user/60c5fd8503b9d80870f8e0c5",
+			"method": "PUT",
+			"modified": "2021-07-18T17:26:59.133Z",
+			"created": "2021-07-18T17:22:25.181Z",
+			"_id": "f47c49b3-4652-4c44-8715-4e8bd5e228b4",
+			"params": [],
+			"body": {
+				"type": "json",
+				"raw": "{\n    \"name\":\"chetan\",\n    \"email\":\"b@b.com\"\n}",
+				"form": []
+			},
+			"tests": []
+		},
+		{
+			"containerId": "4886a327-d01c-48e0-9cb0-b7cb7fe70649",
+			"sortNum": 100000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZmQ4NTAzYjlkODA4NzBmOGUwYzUiLCJpYXQiOjE2MjY2MTMzMTd9.vJPf8T8iyzKpaviwejxoFUYnejbViiZm39nYk7pP1y0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "delete user",
+			"url": "http://localhost:8080/user/60c5fd8503b9d80870f8e0c5",
+			"method": "DELETE",
+			"modified": "2021-07-18T17:30:50.474Z",
+			"created": "2021-07-18T17:30:09.444Z",
+			"_id": "bbf0f26a-4d2a-477a-8ccf-d070b81d05cf",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"sortNum": 120000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZjIwZTQ2MjhlNTMyZDBiOGQ5Y2YiLCJpYXQiOjE2MjcxMjU0MjR9.txEe833kQbe3fIyQgD-nW4of6_ZNSV_KuMuUtqxaPA0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "get posts by user",
+			"url": "http://localhost:8080/post/by/60c5f20e4628e532d0b8d9cf",
+			"method": "GET",
+			"modified": "2021-07-24T14:10:47.769Z",
+			"created": "2021-07-24T12:05:06.487Z",
+			"_id": "76c90e5c-147f-4cb8-abab-4f745e73fd30",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"sortNum": 130000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZjIwZTQ2MjhlNTMyZDBiOGQ5Y2YiLCJpYXQiOjE2MjcxMjU0MjR9.txEe833kQbe3fIyQgD-nW4of6_ZNSV_KuMuUtqxaPA0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "delete post",
+			"url": "http://localhost:8080/post/60fbfa0c6d791c2b8c814157",
+			"method": "DELETE",
+			"modified": "2021-07-24T13:46:37.991Z",
+			"created": "2021-07-24T13:32:09.069Z",
+			"_id": "c7235891-7990-4726-87c9-a8a589720be4",
+			"params": [],
+			"tests": []
+		},
+		{
+			"containerId": "cc186f12-96e0-4a39-9af1-41ffc1888732",
+			"sortNum": 140000,
+			"headers": [
+				{ "name": "Accept", "value": "*/*" },
+				{ "name": "User-Agent", "value": "Thunder Client (https://www.thunderclient.io)" },
+				{
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1ZjIwZTQ2MjhlNTMyZDBiOGQ5Y2YiLCJpYXQiOjE2MjcxMjU0MjR9.txEe833kQbe3fIyQgD-nW4of6_ZNSV_KuMuUtqxaPA0"
+				}
+			],
+			"colId": "c8cbf40b-0bf8-4a86-b771-7da463b62f83",
+			"name": "update a post",
+			"url": "http://localhost:8080/post/60fc1f7c890ebd2e08a94484",
+			"method": "PUT",
+			"modified": "2021-07-24T14:54:39.494Z",
+			"created": "2021-07-24T14:02:17.755Z",
+			"_id": "cb3e0b25-97d3-489b-949b-7620bdcca271",
+			"params": [],
+			"tests": []
+		}
+	]
+}
