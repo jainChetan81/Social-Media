@@ -13,7 +13,7 @@ exports.signUp = async (req, res) => {
 };
 exports.signIn = async (req, res) => {
 	const { email, password } = req.body;
-	if (!email || !password) res.status(401).json({ err: "Username or Password not defined" });
+	if (!email || !password) res.status(401).json({ err: "Email or Password not defined" });
 	await User.findOne({ email }).then((userExists, err) => {
 		if (err || !userExists) return res.status(401).json({ error: "User Doesn't exist!" });
 		if (!userExists.authenticate(password)) {

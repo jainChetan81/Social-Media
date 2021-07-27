@@ -1,79 +1,79 @@
+import { Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import { SUCCESS_MESSAGE_SIGNUP } from "../constants";
+import { setInStorage } from "../storage/sessionStorage";
+import { LOADING_TEXT } from "../constants";
 
-export default class Signup extends Component {
+export default class Signin extends Component {
 	state = {
-		name: "",
 		email: "",
 		password: "",
 		error: "",
-		open: false,
+		redirectToRefer: false,
+		loading: false,
 	};
 	handleChange = (type) => (e) => {
 		this.setState({
 			[type]: e.target.value,
 		});
 	};
+
+	authenticate = (jwt, next) => {
+		if (typeof window !== "undefined") {
+			setInStorage("jwt", jwt);
+			next();
+		}
+	};
+
 	formSubmit = (e) => {
 		e.preventDefault();
-		const signupForm = Object.fromEntries(new FormData(e.target));
-		//fetch a post request
-		fetch("http://localhost:8080/signup", {
+		this.setState({ loading: true });
+		const signinForm = Object.fromEntries(new FormData(e.target));
+		fetch("http://localhost:8080/signin", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
 			},
-			body: JSON.stringify(signupForm),
+			body: JSON.stringify(signinForm),
 		})
 			.then((response) => {
 				return response.json();
 			})
 			.then((response) => {
-				console.log(`response`, response);
 				if (response.error) {
-					this.setState({ error: response.error });
+					this.setState({ error: response.error, loading: false });
 				} else {
-					this.setState({ name: "", email: "", password: "", error: "", open: true });
+					this.authenticate(response, () => {
+						this.setState({
+							redirectToRefer: true,
+						});
+					});
 				}
 			});
 	};
 
 	render() {
-		const { name, email, password, error, open } = this.state;
+		const { email, password, error, redirectToRefer, loading } = this.state;
+		if (redirectToRefer) {
+			return <Redirect to={`/`} />;
+		}
 		return (
 			<div className="container">
-				<h2 className="mt-5 p-2 mb-5">Signup</h2>
+				<h2 className="mt-5 p-2 mb-5">Signin</h2>
 				<div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
 					{error}
 				</div>
-				<div className="alert alert-info" style={{ display: open ? "" : "none" }}>
-					{SUCCESS_MESSAGE_SIGNUP}
-				</div>
+				{loading ? <div className="jumbotron text-center">{LOADING_TEXT}</div> : ""}
 				<form onSubmit={this.formSubmit}>
-					<div className="form-group">
-						<label htmlFor="name" className="text-muted">
-							Name
-						</label>
-						<input
-							type="text"
-							onChange={this.handleChange("name")}
-							name="name"
-							id="name"
-							className="form-control"
-							value={name}
-							required
-						/>
-					</div>
 					<div className="form-group">
 						<label htmlFor="email" className="text-muted">
 							Email
 						</label>
 						<input
-							type="email"
-							id="email"
-							name="email"
+							type="text"
 							onChange={this.handleChange("email")}
+							name="email"
+							id="email"
 							className="form-control"
 							value={email}
 							required
