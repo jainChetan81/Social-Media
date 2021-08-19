@@ -18,7 +18,7 @@ export default class Signup extends Component {
 		e.preventDefault();
 		const signupForm = Object.fromEntries(new FormData(e.target));
 		//fetch a post request
-		fetch("http://localhost:8080/signup", {
+		fetch(`${process.env.REACT_APP_API_URL}/signup`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -42,16 +42,16 @@ export default class Signup extends Component {
 	render() {
 		const { name, email, password, error, open } = this.state;
 		return (
-			<div className="container">
+			<main className="container">
 				<h2 className="mt-5 p-2 mb-5">Signup</h2>
-				<div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+				<h5 className="alert alert-danger" style={{ display: error ? "" : "none" }}>
 					{error}
-				</div>
-				<div className="alert alert-info" style={{ display: open ? "" : "none" }}>
+				</h5>
+				<h5 className="alert alert-info" style={{ display: open ? "" : "none" }}>
 					{SUCCESS_MESSAGE_SIGNUP}
-				</div>
+				</h5>
 				<form onSubmit={this.formSubmit}>
-					<div className="form-group">
+					<section className="form-group">
 						<label htmlFor="name" className="text-muted">
 							Name
 						</label>
@@ -64,8 +64,8 @@ export default class Signup extends Component {
 							value={name}
 							required
 						/>
-					</div>
-					<div className="form-group">
+					</section>
+					<section className="form-group">
 						<label htmlFor="email" className="text-muted">
 							Email
 						</label>
@@ -78,8 +78,8 @@ export default class Signup extends Component {
 							value={email}
 							required
 						/>
-					</div>
-					<div className="form-group">
+					</section>
+					<section className="form-group">
 						<label htmlFor="password" className="text-muted">
 							Password
 						</label>
@@ -92,10 +92,10 @@ export default class Signup extends Component {
 							onChange={this.handleChange("password")}
 							className="form-control"
 						/>
-					</div>
+					</section>
 					<button className="btn btn-raised btn-primary">Submit</button>
 				</form>
-			</div>
+			</main>
 		);
 	}
 }

@@ -28,7 +28,7 @@ export default class Signin extends Component {
 		e.preventDefault();
 		this.setState({ loading: true });
 		const signinForm = Object.fromEntries(new FormData(e.target));
-		fetch("http://localhost:8080/signin", {
+		fetch(`${process.env.REACT_APP_API_URL}/signin`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -58,14 +58,14 @@ export default class Signin extends Component {
 			return <Redirect to={`/`} />;
 		}
 		return (
-			<div className="container">
+			<main className="container">
 				<h2 className="mt-5 p-2 mb-5">Signin</h2>
 				<div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
 					{error}
 				</div>
 				{loading ? <div className="jumbotron text-center">{LOADING_TEXT}</div> : ""}
 				<form onSubmit={this.formSubmit}>
-					<div className="form-group">
+					<section className="form-group">
 						<label htmlFor="email" className="text-muted">
 							Email
 						</label>
@@ -78,8 +78,8 @@ export default class Signin extends Component {
 							value={email}
 							required
 						/>
-					</div>
-					<div className="form-group">
+					</section>
+					<section className="form-group">
 						<label htmlFor="password" className="text-muted">
 							Password
 						</label>
@@ -92,10 +92,10 @@ export default class Signin extends Component {
 							onChange={this.handleChange("password")}
 							className="form-control"
 						/>
-					</div>
+					</section>
 					<button className="btn btn-raised btn-primary">Submit</button>
 				</form>
-			</div>
+			</main>
 		);
 	}
 }

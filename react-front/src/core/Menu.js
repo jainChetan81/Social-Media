@@ -12,7 +12,7 @@ const signout = (next) => {
 		deleteInStorage("jwt");
 	}
 	next();
-	return fetch("http://localhost:8080/signout", {
+	return fetch(`${process.env.REACT_APP_API_URL}/signout`, {
 		method: "GET",
 	})
 		.then((res) => res.json())
