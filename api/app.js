@@ -1,10 +1,11 @@
+const dotenv = require("dotenv");
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const fs = require("fs");
 const expressValidator = require("express-validator");
 require("./models/postModel");
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
 
 //middleware
 app.use(morgan("dev"));
-
+app.use(helmet());
 app.use(cors());
 //to log everything on console
 app.use(bodyParser.json());
@@ -51,7 +52,7 @@ app.use("/", require("./routes/postRoutes"));
 app.use("/", require("./routes/authRoutes"));
 app.use("/", require("./routes/userRoutes"));
 app.use(function (err, req, res, next) {
-	if (err.name === "UnauthorizedError") res.status(401).json({ error: "Unauthorized`" });
+	if (err.name === "UnauthorizedError") res.status(401).json({ error: "Unauthorized Error" });
 });
 
 app.listen(PORT, () => {
