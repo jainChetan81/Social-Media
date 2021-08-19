@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { SUCCESS_MESSAGE_SIGNUP } from "../constants";
+import { signup } from "../utilities/auth";
 
 export default class Signup extends Component {
 	state = {
@@ -16,27 +18,16 @@ export default class Signup extends Component {
 	};
 	formSubmit = (e) => {
 		e.preventDefault();
-		const signupForm = Object.fromEntries(new FormData(e.target));
-		//fetch a post request
-		fetch(`${process.env.REACT_APP_API_URL}/signup`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify(signupForm),
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((response) => {
-				console.log(`response`, response);
-				if (response.error) {
-					this.setState({ error: response.error });
-				} else {
-					this.setState({ name: "", email: "", password: "", error: "", open: true });
-				}
-			});
+		const signupValues = Object.fromEntries(new FormData(e.target));
+
+		signup(signupValues).then((response) => {
+			console.log(`response`, response);
+			if (response.error) {
+				this.setState({ error: response.error });
+			} else {
+				this.setState({ name: "", email: "", password: "", error: "", open: true });
+			}
+		});
 	};
 
 	render() {
@@ -48,7 +39,7 @@ export default class Signup extends Component {
 					{error}
 				</h5>
 				<h5 className="alert alert-info" style={{ display: open ? "" : "none" }}>
-					{SUCCESS_MESSAGE_SIGNUP}
+					{SUCCESS_MESSAGE_SIGNUP}. Please <Link to="/signin">Signin</Link>
 				</h5>
 				<form onSubmit={this.formSubmit}>
 					<section className="form-group">

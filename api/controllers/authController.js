@@ -1,7 +1,7 @@
+require("dotenv").config({ path: "env file path" });
 const mongoose = require("mongoose");
 const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const User = mongoose.model("User");
 
 exports.signUp = async (req, res) => {

@@ -1,7 +1,7 @@
 import { Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import { setInStorage } from "../storage/sessionStorage";
 import { LOADING_TEXT } from "../constants";
+import { authenticate, signin } from "../utilities/auth";
 
 export default class Signin extends Component {
 	state = {
@@ -17,39 +17,21 @@ export default class Signin extends Component {
 		});
 	};
 
-	authenticate = (jwt, next) => {
-		if (typeof window !== "undefined") {
-			setInStorage("jwt", jwt);
-			next();
-		}
-	};
-
 	formSubmit = (e) => {
 		e.preventDefault();
 		this.setState({ loading: true });
-		const signinForm = Object.fromEntries(new FormData(e.target));
-		fetch(`${process.env.REACT_APP_API_URL}/signin`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify(signinForm),
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((response) => {
-				if (response.error) {
-					this.setState({ error: response.error, loading: false });
-				} else {
-					this.authenticate(response, () => {
-						this.setState({
-							redirectToRefer: true,
-						});
+		const signinValues = Object.fromEntries(new FormData(e.target));
+		signin(signinValues).then((response) => {
+			if (response.error) {
+				this.setState({ error: response.error, loading: false });
+			} else {
+				authenticate(response, () => {
+					this.setState({
+						redirectToRefer: true,
 					});
-				}
-			});
+				});
+			}
+		});
 	};
 
 	render() {

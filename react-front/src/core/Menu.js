@@ -1,22 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { deleteInStorage } from "../storage/sessionStorage";
-import { isAuthenticated } from "../utilities/isAuthenticated";
+import { isAuthenticated, signout } from "../utilities/auth";
 
 const isActive = (history, path) => {
 	if (history.location.pathname === path) return { color: "#ff9900" };
 	else return { color: "#ffffff", backgroundColor: "transparent" };
-};
-const signout = (next) => {
-	if (typeof window !== undefined) {
-		deleteInStorage("jwt");
-	}
-	next();
-	return fetch(`${process.env.REACT_APP_API_URL}/signout`, {
-		method: "GET",
-	})
-		.then((res) => res.json())
-		.catch((err) => console.log(err));
 };
 
 function Menu({ history }) {
@@ -26,6 +14,11 @@ function Menu({ history }) {
 				<li className="nav-item active">
 					<Link className="nav-link" style={isActive(history, "/")} to="/">
 						Home
+					</Link>
+				</li>
+				<li className="nav-item active">
+					<Link className="nav-link" style={isActive(history, "/users")} to="/users">
+						Users
 					</Link>
 				</li>
 				{!isAuthenticated() ? (
@@ -58,7 +51,10 @@ function Menu({ history }) {
 							</button>
 						</li>
 						<li className="nav-item">
-							<Link to={`user/${isAuthenticated().user._id}`} className="nav-link">
+							<Link
+								to={`/user/${isAuthenticated().user._id}`}
+								style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+								className="nav-link">
 								{isAuthenticated().user.name}'s profile
 							</Link>
 						</li>
