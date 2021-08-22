@@ -7,6 +7,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const multer = require("multer");
+const upload = multer();
 const expressValidator = require("express-validator");
 require("./models/postModel");
 require("./models/userModel");
@@ -41,10 +43,12 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
 //to log everything on console
-app.use(bodyParser.json());
-//because express on itself doesn't pass the request body
-// app.use(express.json({limit: "50mb"}));
+// app.use(express.json({ limit: "50mb" }));
 // app.use(express.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload.array());
+//because express on itself doesn't pass the request body
 app.use(expressValidator());
 app.use(cookieParser());
 
