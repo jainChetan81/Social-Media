@@ -1,5 +1,6 @@
-export const read = (userId, token) =>
-	fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+//api's to perform CRUD operations on the current user
+export const read = async (userId, token) =>
+	await fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -10,8 +11,8 @@ export const read = (userId, token) =>
 		.then((response) => response.json())
 		.catch((err) => console.log(err));
 
-export const remove = (userId, token) =>
-	fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+export const remove = async (userId, token) =>
+	await fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
@@ -22,8 +23,20 @@ export const remove = (userId, token) =>
 		.then((response) => response.json())
 		.catch((err) => console.log(err));
 
-export const list = () =>
-	fetch(`${process.env.REACT_APP_API_URL}/users`, {
+export const update = async (userId, token, user) =>
+	await fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+		method: "PUT",
+		headers: {
+			Accept: "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+		body: user,
+	})
+		.then((response) => response.json())
+		.catch((err) => console.log(err));
+
+export const list = async () =>
+	await fetch(`${process.env.REACT_APP_API_URL}/users`, {
 		method: "GET",
 	})
 		.then((response) => response.json())

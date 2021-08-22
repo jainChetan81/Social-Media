@@ -7,8 +7,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const fs = require("fs");
-const multer = require("multer");
-const upload = multer();
 const expressValidator = require("express-validator");
 require("./models/postModel");
 require("./models/userModel");
@@ -30,7 +28,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 //read on uget request of "/"
-app.get("/", (req, res) => {
+app.get("/docs", (req, res) => {
 	fs.readFile("docs/apiDocs.json", (err, data) => {
 		if (err) return res.status(400).json({ error: err });
 		const docs = JSON.parse(data);
@@ -41,16 +39,10 @@ app.get("/", (req, res) => {
 //middleware
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors());
-//to log everything on console
-// app.use(express.json({ limit: "50mb" }));
-// app.use(express.urlencoded());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(upload.array());
-//because express on itself doesn't pass the request body
-app.use(expressValidator());
 app.use(cookieParser());
+app.use(expressValidator());
+app.use(cors());
 
 app.use("/", require("./routes/postRoutes"));
 app.use("/", require("./routes/authRoutes"));

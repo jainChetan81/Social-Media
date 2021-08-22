@@ -38,9 +38,8 @@ exports.createPost = (req, res) => {
 	let form = new formidable.IncomingForm();
 	form.keepExtensions = true;
 	form.parse(req, (err, fields, files) => {
-		if (err) {
-			return res.status(400).json({ error: "Image could not be uploaded" });
-		}
+		if (err) res.status(400).json({ error: "Image could not be uploaded" });
+
 		const newPost = new Post(fields);
 		req.profile.hashed_password = undefined;
 		req.profile.salt = undefined;

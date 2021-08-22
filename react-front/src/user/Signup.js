@@ -21,7 +21,6 @@ export default class Signup extends Component {
 		const signupValues = Object.fromEntries(new FormData(e.target));
 
 		signup(signupValues).then((response) => {
-			console.log(`response`, response);
 			if (response.error) {
 				this.setState({ error: response.error });
 			} else {

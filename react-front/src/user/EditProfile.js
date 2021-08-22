@@ -1,0 +1,166 @@
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { LOADING_TEXT } from "../constants";
+import { read, update } from "../core/apiUser";
+import { isAuthenticated } from "../utilities/auth";
+// import { removeFalsyObject } from "../utilities/objManipulation";
+
+class EditProfile extends Component {
+	state = {
+		id: "",
+		name: "",
+		email: "",
+		password: "",
+		photo: "",
+		redirectToProfile: false,
+		error: "",
+		loading: false,
+	};
+
+	componentDidMount() {
+		this.userData = new FormData();
+		const userId = this.props.match.params.userId;
+		this.init(userId);
+	}
+
+	init = (userId) => {
+		const token = isAuthenticated().token;
+		read(userId, token)
+			.then((user) => {
+				this.setState({
+					id: user._id,
+					name: user.name,
+					email: user.email,
+					photo: user.photo || "",
+					error: "",
+					loading: false,
+				});
+			})
+			.catch((error) => {
+				this.setState({ redirectToProfile: true, error });
+			});
+	};
+
+	handleChange = (type) => (e) => {
+		const value = type === "photo" ? e.target.files[0] : e.target.value;
+		const fileSize = type === "photo" ? e.target.files[0].size : 0;
+		this.userData.set(type, value);
+		this.setState({ [type]: value, fileSize });
+	};
+
+	isValid = () => {
+		const { name, email, password } = this.state;
+		if (name.length === 0) {
+			this.setState({ error: "Name is required", loading: false });
+			return false;
+		}
+
+		if (!/^\w+([.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+			this.setState({
+				error: "A valid Email is required",
+				loading: false,
+			});
+			return false;
+		}
+		if (password.length >= 1 && password.length <= 5) {
+			this.setState({
+				error: "Password must be at least 6 characters long",
+				loading: false,
+			});
+			return false;
+		}
+		return true;
+	};
+
+	editFormSubmit = (e) => {
+		e.preventDefault();
+		this.setState({ loading: true });
+		if (this.isValid()) {
+			const token = isAuthenticated().token;
+			const userId = this.props.match.params.userId;
+			update(userId, token, this.userData).then((response) => {
+				if (response.error)
+					this.setState({ error: response.error._message || response.error });
+				else this.setState({ redirectToProfile: true, loading: false });
+			});
+		}
+	};
+
+	render() {
+		const { name, email, password, redirectToProfile, id, error, photo, loading } = this.state;
+		if (redirectToProfile) {
+			return <Redirect to={`/user/${id}`} />;
+		}
+		return (
+			<div className="container">
+				<h2 className="mt-5 mb-5">Edit Profile</h2>
+				<div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+					{error}
+				</div>
+				{loading && <div className="jumbotron text-center">{LOADING_TEXT}</div>}
+				<form onSubmit={this.editFormSubmit}>
+					<section className="form-group">
+						<label htmlFor="photo" className="text-muted">
+							Profile Photo
+						</label>
+						<input
+							type="file"
+							accept="image/*"
+							onChange={this.handleChange("photo")}
+							name="photo"
+							id="photo"
+							className="form-control"
+						/>
+						<small>
+							<img src={photo.data} alt="" />
+						</small>
+					</section>
+					<section className="form-group">
+						<label htmlFor="nameEdit" className="text-muted">
+							New Name
+						</label>
+						<input
+							type="text"
+							onChange={this.handleChange("name")}
+							name="name"
+							autoComplete="new-name"
+							id="nameEdit"
+							className="form-control"
+							value={name}
+						/>
+					</section>
+					<section className="form-group">
+						<label htmlFor="emailEdit" className="text-muted">
+							New Email
+						</label>
+						<input
+							type="email"
+							id="emailEdit"
+							autoComplete="new-email"
+							name="email"
+							onChange={this.handleChange("email")}
+							className="form-control"
+							value={email}
+						/>
+					</section>
+					<section className="form-group">
+						<label htmlFor="passwordEdit" className="text-muted">
+							Password
+						</label>
+						<input
+							type="password"
+							id="passwordEdit"
+							autoComplete="new-password"
+							value={password}
+							name="password"
+							onChange={this.handleChange("password")}
+							className="form-control"
+						/>
+					</section>
+					<button className="btn btn-raised btn-primary">Submit</button>
+				</form>
+			</div>
+		);
+	}
+}
+export default EditProfile;

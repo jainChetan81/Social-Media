@@ -13,10 +13,6 @@ export class Profile extends Component {
 		const userId = this.props.match.params.userId;
 		this.init(userId);
 	}
-	componentWillReceiveProps(nextProps) {
-		const userId = nextProps.match.params.userId;
-		this.init(userId);
-	}
 
 	init = (userId) => {
 		const token = isAuthenticated().token;
@@ -30,10 +26,14 @@ export class Profile extends Component {
 				this.setState({ redirectToSign: true });
 			});
 	};
+	componentWillReceiveProps(nextProps) {
+		const userId = nextProps.match.params.userId;
+		this.init(userId);
+	}
 
 	render() {
 		const { user, redirectToSign } = this.state;
-		if (redirectToSign || user.error) {
+		if (redirectToSign || user?.error) {
 			return <Redirect to="/signin" />;
 		}
 		return (
