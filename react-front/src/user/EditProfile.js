@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { LOADING_TEXT } from "../constants";
-import { read, update } from "../core/apiUser";
+import { photo, read, update } from "../core/apiUser";
 import { isAuthenticated } from "../utilities/auth";
+import avatar from "../assets/images/avatar.png";
+
 // import { removeFalsyObject } from "../utilities/objManipulation";
 
 class EditProfile extends Component {
@@ -11,7 +13,7 @@ class EditProfile extends Component {
 		name: "",
 		email: "",
 		password: "",
-		photo: "",
+		photoUrl: "",
 		redirectToProfile: false,
 		error: "",
 		loading: false,
@@ -31,7 +33,6 @@ class EditProfile extends Component {
 					id: user._id,
 					name: user.name,
 					email: user.email,
-					photo: user.photo || "",
 					error: "",
 					loading: false,
 				});
@@ -42,6 +43,7 @@ class EditProfile extends Component {
 	};
 
 	handleChange = (type) => (e) => {
+		this.setState({ error: "" });
 		const value = type === "photo" ? e.target.files[0] : e.target.value;
 		const fileSize = type === "photo" ? e.target.files[0].size : 0;
 		this.userData.set(type, value);
@@ -49,7 +51,11 @@ class EditProfile extends Component {
 	};
 
 	isValid = () => {
-		const { name, email, password } = this.state;
+		const { name, email, password, fileSize } = this.state;
+		if (fileSize > 200000) {
+			this.setState({ error: "File size should be less than 200kb", loading: false });
+			return false;
+		}
 		if (name.length === 0) {
 			this.setState({ error: "Name is required", loading: false });
 			return false;
@@ -72,6 +78,12 @@ class EditProfile extends Component {
 		return true;
 	};
 
+	getUserImage = () => {
+		const userId = this.props.match.params.userId;
+		const photoUrl = photo(userId) || avatar;
+		return photoUrl;
+	};
+
 	editFormSubmit = (e) => {
 		e.preventDefault();
 		this.setState({ loading: true });
@@ -87,10 +99,11 @@ class EditProfile extends Component {
 	};
 
 	render() {
-		const { name, email, password, redirectToProfile, id, error, photo, loading } = this.state;
+		const { name, email, password, redirectToProfile, id, error, loading } = this.state;
 		if (redirectToProfile) {
 			return <Redirect to={`/user/${id}`} />;
 		}
+
 		return (
 			<div className="container">
 				<h2 className="mt-5 mb-5">Edit Profile</h2>
@@ -98,6 +111,14 @@ class EditProfile extends Component {
 					{error}
 				</div>
 				{loading && <div className="jumbotron text-center">{LOADING_TEXT}</div>}
+				<img
+					height="200px"
+					width="200px"
+					className="img-thumbnail"
+					src={this.getUserImage()}
+					alt={`${name}'s profile`}
+				/>
+
 				<form onSubmit={this.editFormSubmit}>
 					<section className="form-group">
 						<label htmlFor="photo" className="text-muted">
@@ -111,9 +132,6 @@ class EditProfile extends Component {
 							id="photo"
 							className="form-control"
 						/>
-						<small>
-							<img src={photo.data} alt="" />
-						</small>
 					</section>
 					<section className="form-group">
 						<label htmlFor="nameEdit" className="text-muted">

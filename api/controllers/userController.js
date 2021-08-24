@@ -47,7 +47,6 @@ exports.getUser = (req, res) => {
 exports.updateUser = (req, res, next) => {
 	let form = new formidable.IncomingForm();
 	form.keepExtensions = true;
-	console.log("incoming form data: " + JSON.stringify(form));
 	form.parse(req, (err, fields, files) => {
 		if (err) res.status(400).json({ error: "Photo could not be uploaded" });
 		let user = req.profile;
@@ -65,6 +64,13 @@ exports.updateUser = (req, res, next) => {
 			res.json(user);
 		});
 	});
+};
+exports.userPhotos = (req, res, next) => {
+	if (req.profile.photo.data) {
+		res.set(("Content-Type", req.profile.photo.contentType));
+		return res.send(req.profile.photo.data);
+	}
+	next();
 };
 
 //function to delete current user profile

@@ -41,3 +41,5 @@ export const list = async () =>
 	})
 		.then((response) => response.json())
 		.catch((err) => console.log(err));
+export const photo = (userId) =>
+	`${process.env.REACT_APP_API_URL}/user/photo/${userId}?${new Date().getTime()}`;
