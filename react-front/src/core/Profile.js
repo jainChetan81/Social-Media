@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated } from "../utilities/auth";
-import { read } from "./apiUser";
+import { photo, read } from "./apiUser";
 import avatar from "../assets/images/avatar.png";
 import DeleteUser from "../user/DeleteUser";
 export class Profile extends Component {
@@ -13,6 +13,11 @@ export class Profile extends Component {
 		const userId = this.props.match.params.userId;
 		this.init(userId);
 	}
+	getUserImage = () => {
+		const userId = this.props.match.params.userId;
+		const photoUrl = photo(userId) || avatar;
+		return photoUrl;
+	};
 
 	init = (userId) => {
 		const token = isAuthenticated().token;
@@ -42,10 +47,10 @@ export class Profile extends Component {
 				<div className="row">
 					<div className="col-md-6">
 						<img
-							style={{ maxWidth: "300px" }}
-							src={avatar}
-							className="card-img-top"
-							alt={`Card for user ${user.name}`}
+							height="200px"
+							className="img-thumbnail"
+							src={this.getUserImage()}
+							alt={`${user?.name ?? "Guest"}'s profile`}
 						/>
 					</div>
 					<div className="col-md-6">

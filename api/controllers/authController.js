@@ -25,10 +25,7 @@ exports.signIn = async (req, res) => {
 		return res.status(200).json({ token, user: { _id, name, email } });
 	});
 };
-/**
- * @param  {} req
- * @param  {} res
- */
+
 exports.signOut = async (req, res) => {
 	res.clearCookie("t");
 	res.json({ success: true, message: "Signout Successfull!" });

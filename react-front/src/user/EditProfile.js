@@ -113,7 +113,6 @@ class EditProfile extends Component {
 				{loading && <div className="jumbotron text-center">{LOADING_TEXT}</div>}
 				<img
 					height="200px"
-					width="200px"
 					className="img-thumbnail"
 					src={this.getUserImage()}
 					alt={`${name}'s profile`}
